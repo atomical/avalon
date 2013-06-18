@@ -9,6 +9,7 @@ class Admin::CollectionsController < ApplicationController
 
   def index
     @collections = Collection.all
+    authorize! :manage, Collection
   end
 
   def create

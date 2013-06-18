@@ -15,7 +15,7 @@ class Collection < ActiveFedora::Base
   before_save :populate_dependent_attributes!
 
   validates :name, :uniqueness => { :solr_name => 'name_t'}, presence: true
-  validates :unit, inclusion: { in: Proc.new{ Unit.all } }, allow_nil: true
+  validates :unit_id, inclusion: { in: Proc.new{ Unit.all.map(&:id) } }, allow_nil: true
   
   delegate :name, to: :descMetadata, :unique => true
   delegate :media_objects_count, to: :objectMetadata
