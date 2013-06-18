@@ -56,6 +56,8 @@ RSpec.configure do |config|
     headless.start
 
     logger.debug "<< headless now running on #{headless.display} >>"
+
+    ActiveFedora::Base.delete_all
   end
 
 
@@ -65,16 +67,7 @@ RSpec.configure do |config|
       headless.destroy
     end
     
-    # Put named fixtures from the fixtures directory here so they are cleaned
-    # up if they exist
-    test_fixtures = ['avalon:video-segment', 
-      'avalon:electronic-resource',
-      'avalon:musical-performance',
-      'avalon:print-publication']
-    test_fixtures.each do |fixture|
-      logger.debug "Removing test object #{fixture} if present" 
-      MediaObject.find(fixture).delete if MediaObject.exists?(fixture) 
-    end
+    ActiveFedora::Base.delete_all
   end
   
   config.include Devise::TestHelpers, :type => :controller

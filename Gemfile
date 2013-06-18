@@ -97,6 +97,7 @@
     gem 'email_spec'
     gem 'capybara'   
     gem 'shoulda-matchers'
+    gem 'faker'
   end
 
   extra_gems = File.expand_path("../Gemfile.local",__FILE__)

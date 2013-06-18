@@ -2,6 +2,7 @@ class Collection < ActiveFedora::Base
   # include Hydra::ModelMethods
   include ActiveFedora::Associations
   include Hydra::ModelMixins::RightsMetadata
+  include Avalon::ManagersAssociation
 
   belongs_to :unit, class_name: 'Unit', property: :is_part_of
   has_and_belongs_to_many :media_objects, property: :has_collection_member, class_name: 'MediaObject' 
