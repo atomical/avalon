@@ -73,7 +73,7 @@
   group :development, :test do 
     gem 'capistrano', '~>2.12.0'
     gem 'rvm-capistrano'
-    gem 'database_cleaner'
+    gem 'database_cleaner', git: 'https://github.com/atomical/database_cleaner', branch: 'adding_support_for_active_fedora_orm'
     gem 'factory_girl_rails'
     gem 'rspec-rails', '>=2.9.0'
     gem 'pry'
@@ -91,7 +91,6 @@
 
   group :test do
     gem 'mime-types', ">=1.1"
-    gem "headless"
     gem "rspec_junit_formatter"
     gem 'simplecov'
     gem 'email_spec'

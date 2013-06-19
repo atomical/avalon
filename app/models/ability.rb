@@ -30,6 +30,10 @@ class Ability
       can :manage, Collection
 		end
 
+    can :manage, Unit do |unit|
+      unit.managers.include?(@user)
+    end
+
     can :manage, Collection do |collection|
       can_manage = false
 

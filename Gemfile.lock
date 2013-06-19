@@ -6,6 +6,13 @@ GIT
       capistrano
 
 GIT
+  remote: https://github.com/atomical/database_cleaner
+  revision: 9f1ad8f041ae070e54ab882fff50743bd56ece28
+  branch: adding_support_for_active_fedora_orm
+  specs:
+    database_cleaner (1.0.1)
+
+GIT
   remote: https://github.com/avalonmediasystem/avalon-batch.git
   revision: 7ea0ae79b1db1f8301e5251c1d65fc0ee7404186
   specs:
@@ -179,7 +186,6 @@ GEM
     compass-susy-plugin (0.9)
       compass (>= 0.11.1)
     daemons (1.1.9)
-    database_cleaner (0.9.1)
     debugger (1.5.0)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -227,7 +233,6 @@ GEM
     haml (4.0.1)
       tilt
     hashie (1.2.0)
-    headless (1.0.1)
     highline (1.6.16)
     hike (1.2.2)
     hooks (0.3.1)
@@ -495,7 +500,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   compass-rails (~> 1.0.0)
   compass-susy-plugin (~> 0.9.0)
-  database_cleaner
+  database_cleaner!
   debugger
   delayed_job_active_record
   devise
@@ -508,7 +513,6 @@ DEPENDENCIES
   font-awesome-sass-rails
   grit
   haml
-  headless
   hydra-head (~> 5.0.0)
   jdbc-sqlite3
   jettywrapper

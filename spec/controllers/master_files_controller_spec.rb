@@ -19,7 +19,7 @@ describe MasterFilesController do
 
     before(:each) do
       load_fixture 'avalon:video-segment'
-      login_as 'content_provider'
+      @content_provider = login_as 'content_provider', { username: 'jlhardes' }
     end
 
     context "must provide a container id" do
@@ -59,7 +59,7 @@ describe MasterFilesController do
         flash[:errors].should be_nil
       end
            
-     it "should recognize an audio format" do
+      it "should recognize an audio format" do
        @file = fixture_file_upload('/jazz-performance.mp3', 'audio/mp3')
        post :create, 
          Filedata: [@file], 
@@ -69,24 +69,24 @@ describe MasterFilesController do
        mediaobject = MediaObject.find('avalon:video-segment')
        master_file = mediaobject.parts.first
        master_file.file_format.should eq "Sound" 
-     end
+      end
        
-     it "should reject non audio/video format" do
+      it "should reject non audio/video format" do
        request.env["HTTP_REFERER"] = "/"
        load_fixture 'avalon:electronic-resource'
-     
+
        @file = fixture_file_upload('/public-domain-book.txt', 'application/json')
         Rubyhorn.stub_chain(:client,:stop).and_return(true)
 
        lambda { post :create, Filedata: [@file], original: 'any', container_id: 'avalon:electronic-resource' }.should_not change { MasterFile.count }
        logger.debug "<< Flash errors is present? #{flash[:errors]} >>"
-     
+
        flash[:errors].should_not be_nil
-     end
-    
-     it "should recognize audio/video based on extension when MIMETYPE is of unknown format" do
+      end
+
+      it "should recognize audio/video based on extension when MIMETYPE is of unknown format" do
        @file = fixture_file_upload('/videoshort.mp4', 'application/octet-stream')
-    
+
        post :create, 
          Filedata: [@file], 
          original: 'any', 
@@ -95,7 +95,7 @@ describe MasterFilesController do
        master_file.file_format.should eq "Moving image" 
              
        flash[:errors].should be_nil
-     end
+      end
     end
      
     context "should process file successfully" do
@@ -129,7 +129,7 @@ describe MasterFilesController do
 
         master_file = MasterFile.all.last
         master_file.edit_groups.should include "collection_manager"
-        master_file.edit_users.should include "archivist2"
+        master_file.edit_users.should include @content_provider.username
       end
     end
   end
