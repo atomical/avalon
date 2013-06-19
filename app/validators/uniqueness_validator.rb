@@ -1,9 +1,12 @@
 class UniquenessValidator < ActiveModel::EachValidator
-  def validate_each(record, attribute, value)
+  def initialize(options)
     unless options[:solr_name].present?
       raise ArgumentError, "UniquenessValidator was not passed :solr_name. Example: validates :uniqueness => { :solr_name => 'name_t' }"
     end
     @solr_field = options[:solr_name]
+    super
+  end
+  def validate_each(record, attribute, value)
     klass = record.class
     existing_doc = find_doc(klass, value)
     
