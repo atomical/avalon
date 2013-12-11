@@ -13,4 +13,8 @@
   
   <dt>Unit:</dt>
   <dd><%= @collection.unit %></dd>
+
+  <dt>Dropbox Path:</dt>
+  <dd><%= File.join(Avalon::Configuration['dropbox']['path'], @collection.dropbox_directory_name) %></dd>
+
 </dl>

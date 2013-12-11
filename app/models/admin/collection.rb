@@ -16,7 +16,6 @@ require 'hydra/datastream/non_indexed_rights_metadata'
 require 'hydra/model_mixins/hybrid_delegator'
 require 'role_controls'
 require 'avalon/controlled_vocabulary'
-require 'avalon/sanitizer'
 
 class Admin::Collection < ActiveFedora::Base
   include Hydra::ModelMixins::CommonMetadata
@@ -36,6 +35,7 @@ class Admin::Collection < ActiveFedora::Base
   has_metadata name: 'defaultRights', type: Hydra::Datastream::NonIndexedRightsMetadata, autocreate: true
 
   validates :name, :uniqueness => { :solr_name => 'name_sim'}, presence: true
+  # validates :name, 
   validates :unit, presence: true, inclusion: { in: Proc.new{ Admin::Collection.units } }
   validates :managers, length: {minimum: 1, message: 'Collection requires at least one manager'} 
 
@@ -182,21 +182,24 @@ class Admin::Collection < ActiveFedora::Base
     end
 
     def create_dropbox_directory!
-      name = Avalon::Sanitizer.sanitize(self.name)
-      iter = 0
-      
-      _name = name.dup
-      while File.exist?(build_dropbox_directory_absolute_path(name))
-        name = _name + (iter += 1).to_s
+      name = Sanistring.sanitize( self.name, whitelist: :alphanumeric, replace: { '-' => '_', ' '=> '_' }, downcase: true )
+      iter = 2
+      original_name = name.dup.freeze
+
+      while File.exist? build_dropbox_directory_absolute_path(name)
+        name = "#{original_name}_#{iter}"
+        iter += 1
       end
+
       absolute_path = build_dropbox_directory_absolute_path(name)
       
       begin
         Dir.mkdir(absolute_path)
-        self.dropbox_directory_name = name
       rescue Exception => e
         Rails.logger.error "Could not create directory (#{absolute_path}): #{e.inspect}"
       end
+
+      self.dropbox_directory_name = name
     end
 
 end

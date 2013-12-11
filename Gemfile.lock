@@ -437,6 +437,7 @@ GEM
     rubyzip (0.9.9)
     rvm-capistrano (1.4.1)
       capistrano (>= 2.0.0)
+    sanistring (0.0.2)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -556,6 +557,7 @@ DEPENDENCIES
   rubyhorn!
   rubyzip (= 0.9.9)
   rvm-capistrano
+  sanistring
   sass-rails (~> 3.2.3)
   shoulda-matchers
   simplecov
