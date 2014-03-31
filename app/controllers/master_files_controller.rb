@@ -24,6 +24,8 @@ class MasterFilesController < ApplicationController
   before_filter :authenticate_user!, :only => [:create]
   before_filter :ensure_readable_filedata, :only => [:create]
 
+  etag :thumbnail
+
   def show
     masterfile = MasterFile.find(params[:id])
     redirect_to pid_section_media_object_path(masterfile.mediaobject.pid, masterfile.pid)
@@ -198,6 +200,21 @@ class MasterFilesController < ApplicationController
     end
   end
 
+  def thumbnail
+    master_file = MasterFile.find(params[:id])
+    authorize! :read, master_file.mediaobject, message: "You do not have sufficient privileges to view this file"
+    ds = master_file.datastreams['thumbnail']
+    mimeType = ds.mimeType || 'image/jpeg'
+    puts 'hEREREEE'
+    send_data ds.content, :filename => "#{'thumbnail'}-#{master_file.pid.split(':')[1]}", :disposition => :inline, :type => mimeType
+  end
+
+  def poster
+    master_file = MasterFile.find(params[:id])
+    authorize! :read, master_file.mediaobject, message: "You do not have sufficient privileges to view this file"
+    send_preview_image(:poster, master_file)
+  end
+
   def get_frame
     master_file = MasterFile.find(params[:id])
     parent = master_file.mediaobject
@@ -216,6 +233,13 @@ class MasterFilesController < ApplicationController
   end
 
 protected
+
+  def send_preview_image( type, master_file )
+    ds = master_file.datastreams[type.to_s]
+    mimeType = ds.mimeType || 'image/jpeg'
+    send_data ds.content, :filename => "#{type}-#{master_file.pid.split(':')[1]}", :disposition => :inline, :type => mimeType
+  end
+
   def create_upload_notice(format) 
     case format
       when /^Sound$/

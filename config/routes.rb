@@ -34,8 +34,8 @@ Avalon::Application.routes.draw do
   end
   resources :master_files, except: [:new, :index] do
     member do
-      get  'thumbnail', :to => 'master_files#get_frame', :defaults => { :type => 'thumbnail' }
-      get  'poster',    :to => 'master_files#get_frame', :defaults => { :type => 'poster' }
+      get :thumbnail
+      get :poster
 
       post 'thumbnail', :to => 'master_files#set_frame', :defaults => { :type => 'thumbnail', :format => 'html' }
       post 'poster',    :to => 'master_files#set_frame', :defaults => { :type => 'poster', :format => 'html' }

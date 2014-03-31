@@ -477,6 +477,9 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    saxondale (0.0.0)
+      active-fedora
+      rails (~> 3.2.3)
     shoulda-matchers (2.5.0)
       activesupport (>= 3.0.0)
     simplecov (0.8.2)
@@ -598,6 +601,7 @@ DEPENDENCIES
   rubyzip (= 0.9.9)
   rvm-capistrano
   sass-rails (~> 3.2.3)
+  saxondale
   shoulda-matchers
   simplecov
   sqlite3

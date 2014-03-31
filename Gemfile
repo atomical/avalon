@@ -23,6 +23,7 @@
 
   gem 'rubyzip', '0.9.9'
   gem 'hooks'
+  gem 'saxondale'
 
   platforms :jruby do
     gem 'jruby-openssl'

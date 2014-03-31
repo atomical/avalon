@@ -73,6 +73,7 @@ class MasterFile < ActiveFedora::Base
 
   has_model_version 'R3'
   before_save 'update_stills_from_offset!'
+  expire_etag [:thumbnail, :poster]
 
   define_hooks :after_processing
   after_processing :post_processing_file_management
