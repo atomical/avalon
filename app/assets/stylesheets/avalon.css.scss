@@ -89,7 +89,7 @@ tr.active-false td {
     padding-left:  $line-height-base;
     margin-bottom: $line-height-computed/4;
     text-align: left;
-    @include border-radius($border-radius-base);
+    border-radius: $border-radius-base;
 
     background-color: $gray-lighter;
     border: $gray;
@@ -97,6 +97,10 @@ tr.active-false td {
 
     a:hover {
       background: transparent;
+    }
+    span {
+      display: block;
+      padding: 10px 15px;
     }
     p {
       margin-left: 1em;
@@ -155,16 +159,20 @@ tr.active-false td {
     }
   } 
 }	
-
 .navbar-right {
-  padding: 5px 0;
+  padding: 6px 0;
 }
 .container > .navbar-header {
-  height: 25px;
-  margin-right: 0px;
+  height: auto;
 }
 .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #888888;
+}
+.navbar-toggle {
+  margin: 4px;
+}
+#user-util-collapse{
+  border-top: 0;
 }
 
 .big-modal {
@@ -172,27 +180,8 @@ tr.active-false td {
   margin-left: -40%;
 }
 
-// If we are being responsive should really avoid using px measurements unless 
-// actually needed (!)
-div#dropbox_modal {
-  div.dataTables_paginate {
-    float: none;
-    text-align: left;
-  }
-
-  .modal-header .close {
-    margin-top: 11px;
-    margin-right: 14px;
-  }
-
-  .modal-header {
-    height: 37px;
-    padding: 0px 0px 0px 0px;
-  }
-
-  form {
-    margin: 0 0 0px;
-  }
+#browse-btn {
+  margin: .5em 0;
 }
 
 // Custom file preview field for Jasny bootstrap
@@ -220,7 +209,7 @@ div#dropbox_modal {
   margin-bottom: $line-height-base/2;
   cursor: help;
 
-  @include border-radius($border-radius-base);
+  border-radius: $border-radius-base;
 
   &.collapse {
     display: none;
@@ -282,56 +271,55 @@ label {
   span {
     width: 75%;
   }
+}
 
-  // Twitter-typeahead classes
-  .twitter-typeahead {
-    @extend .col-md-9;
-    padding: 0;
-  }
-  .tt-input {
-    position:relative;
-    z-index: 1051;
-  }
-  .tt-input:focus, select:focus {
-    border-color: rgba(82, 168, 236, 0.8);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
-    outline: 0 none;
-  }
-  .tt-hint {
-    position:absolute;
-    z-index: 1050;
-    color:#BBB;
-  }
-  .tt-suggestions {
-    border-radius: 4px;
-    margin: 2px 0 0 0;
-    z-index: 1051;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    min-width: 160px;
-    position: absolute;
-  }
-  .tt-suggestion {
-    clear: both;
-    color: #333;
-    display: block;
-    line-height: 20px;
-    padding: 3px 6px;
-    white-space: nowrap;
-  }
-  .tt-suggestion p {
-    padding: 0;
-    margin: 0;
-  }
-  .tt-cursor {
-    background-color: #264d52;
-    background-image: linear-gradient(to bottom, #2a5459, #224448);
-    background-repeat: repeat-x;
-    color: #fff;
-    outline: 0 none;
-    text-decoration: none;
-  }
+// Twitter-typeahead classes
+.twitter-typeahead {
+  padding: 0;
+}
+.tt-input {
+  position:relative;
+  z-index: 1051;
+}
+.tt-input:focus, select:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+  outline: 0 none;
+}
+.tt-hint {
+  position:absolute;
+  z-index: 1050;
+  color:#BBB;
+}
+.tt-suggestions {
+  border-radius: 4px;
+  margin: 2px 0 0 0;
+  z-index: 1051;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  min-width: 160px;
+  position: absolute;
+}
+.tt-suggestion {
+  clear: both;
+  color: #333;
+  display: block;
+  line-height: 20px;
+  padding: 3px 6px;
+  white-space: nowrap;
+}
+.tt-suggestion p {
+  padding: 0;
+  margin: 0;
+}
+.tt-cursor {
+  background-color: #264d52;
+  background-image: linear-gradient(to bottom, #2a5459, #224448);
+  background-repeat: repeat-x;
+  color: #fff;
+  outline: 0 none;
+  text-decoration: none;
 }
 
 /**
@@ -350,6 +338,7 @@ label {
 body {
   margin-top: 0;
   padding-top: 0;
+  min-width: 295px;
 }
 
 input[type="text"]#admin_group {
@@ -401,7 +390,7 @@ header div{
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
     height: 25px;
-    width: 300px;
+    width: 100%;
     vertical-align: middle;
 }
 
@@ -409,8 +398,10 @@ header div{
 
 .sidenav { 
   h4 {
+    margin: 0px;
     background-color: $sidenavHeaderBackgroundColor;
     @include border-top-radius(6px);
+    padding: 10px 0 10px 10px;
   }
   h5 {
     font-weight: bold;
@@ -419,6 +410,8 @@ header div{
 
 .sidenav .top-panel-heading {
   background-color: #cfd8d3;
+  padding: 0;
+  margin-bottom: 0;
 }
 
 .facets .panel-group .panel {
@@ -432,6 +425,11 @@ header div{
   }
   .panel-group {
     margin-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  ul {
+    margin-bottom: 0px;
   }
   .top-panel-heading {
     margin-bottom: 0em;
@@ -440,18 +438,20 @@ header div{
 
 div[id*='facet-panel-'] {
   @extend .navbar-collapse;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   border-top: none;
   box-shadow: none;
   max-height: none;
 }
 
 .facets-toggle {
+  margin-top: -6px;
   background-color: white;
   .icon-bar {
     background-color: #888888;
   }
+  margin: 3px;
 }
 
 
@@ -594,6 +594,10 @@ button.close {
   }
 }
 
+.btn-confirmation+.popover .popover-content {
+  white-space: nowrap;
+}
+
 .fileupload-exists {
   input[type='checkbox'] {
     margin-top: 4px;
@@ -601,8 +605,26 @@ button.close {
   }
 }
 
+.fileinput {
+    max-width: 500px;
+    .form-control {
+      max-width: 500px;
+      white-space: nowrap;
+      overflow-x: hidden;
+    }
+}
+
+.fileinput-submit {
+  z-index: 10 !important;
+}
+
 .ev-browser {
   background-color: white;
+}
+
+a[data-trigger='submit'] {
+  text-decoration: none;
+  color: black;
 }
 
 .access-block {
